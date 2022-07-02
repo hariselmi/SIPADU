@@ -1,0 +1,448 @@
+<!-- Adding JQuery Cdn -->
+<link
+    rel="style"
+    href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"
+/>
+<!-- Adding JQuery Cdn -->
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<!-- Adding Datatable Cdn -->
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+<!-- Datatables -->
+<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css"></script>
+
+<script>
+    $(document).ready(function () {
+        var table = $("#example1").DataTable({
+            responsive: true,
+            autoWidth: true,
+            buttons: [
+                "copy",
+                "csv",
+                "print",
+                "excel",
+                "colvis",
+                {
+                    extend: "pdfHtml5",
+                    text: "PDF",
+                    pageSize: "LEGAL",
+                    orientation: "landscape",
+                    title: "Daftar Pendaftaran Online",
+                    exportOptions: {
+                        columns: ":visible",
+                        orthogonal: "print",
+                    },
+                },
+            ],
+            dom:
+                "<'row'<'col-md-3'l><'col-md-5'B><'col-md-4'f>>" +
+                "<'row'<'col-md-12'tr>>" +
+                "<'row'<'col-md-5'i><'col-md-7'p>>",
+            lengthMenu: [
+                [5, 10, 25, 50, 100, -1],
+                [5, 10, 25, 50, 100, "All"],
+            ],
+        });
+
+        table
+            .buttons()
+            .container()
+            .appendTo("#example1_wrapper .col-md-5:eq(0)");
+    });
+</script>
+
+<!-- DataTables  & Plugins -->
+<script src="{{
+        asset('template_admin/')
+    }}/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="{{
+        asset('template_admin/')
+    }}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{
+        asset('template_admin/')
+    }}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="{{
+        asset('template_admin/')
+    }}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="{{
+        asset('template_admin/')
+    }}/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="{{
+        asset('template_admin/')
+    }}/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="{{
+        asset('template_admin/')
+    }}/plugins/jszip/jszip.min.js"></script>
+<script src="{{
+        asset('template_admin/')
+    }}/plugins/pdfmake/pdfmake.min.js"></script>
+<script src="{{
+        asset('template_admin/')
+    }}/plugins/pdfmake/vfs_fonts.js"></script>
+<script src="{{
+        asset('template_admin/')
+    }}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="{{
+        asset('template_admin/')
+    }}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="{{
+        asset('template_admin/')
+    }}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+<td><img src="{{url('foto_siswa/'.$data->foto_siswa)}}" width="50px" /></td>
+
+<script
+    data-cfasync="false"
+    src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+></script>
+<script>
+    window.addEventListener("load", window.print());
+</script>
+
+public function fomulirpdf($no_form){ $data = [ 'pendaftaran_online' =>
+$this->PendaftaranOnlineModel->detailData($no_form), ]; return
+view('fomulir_pdf', $data); $pdf = PDF::loadView('fomulir_pdf', $data); return
+$pdf->download('fomulirpendaftaran.pdf'); }
+
+<!-- //modal tambah data peserta didik -->
+<div class="mb-2 ps-2">
+    <label for="Nama_Lengkap" class="form-group">Nama Lengkap</label>
+    <input
+        type="text"
+        class="form-control mb-2"
+        id="Nama_Lengkap"
+        name="Nama_Lengkap"
+        placeholder="Isi Nama Lengkap (berdasarkan akte lahir)"
+        required
+    />
+    <div class="invalid-feedback">Mohon isi Nama Lengkap</div>
+
+    <div class="mb-2">
+        <label for="Nama_Mandarin" class="form-group">Nama Mandarin</label>
+        <input
+            type="text"
+            class="form-control"
+            id="Nama_Mandarin"
+            name="Nama_Mandarin"
+            placeholder="Nama Mandarin - Pin Yin"
+        />
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Tempat_Lahir"> Tempat Lahir</label>
+                <input
+                    type="text"
+                    id="Tempat_Lahir"
+                    name="Tempat_Lahir"
+                    class="form-control"
+                    placeholder="Tempat Lahir"
+                    required
+                />
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-2">
+            <div class="form-group">
+                <label for="Tanggal_Lahir"> Tanggal Lahir</label>
+                <input
+                    type="date"
+                    id="Tanggal_Lahir"
+                    name="Tanggal_Lahir"
+                    class="form-control"
+                    required
+                />
+            </div>
+        </div>
+
+        <div class="form-group col-md-6 mb-2">
+            <label for="Jenis_Kelamin">Jenis Kelamin</label>
+            <select
+                class="form-control"
+                id="Jenis_Kelamin"
+                name="Jenis_Kelamin"
+                required
+            >
+                <option selected disabled value>Jenis Kelamin</option>
+                <option value="Laki-Laki">Laki-Laki</option>
+                <option value="Perempuan">Perempuan</option>
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Agama">Agama</label>
+                <select class="form-control" id="Agama" name="Agama" required>
+                    <option selected disabled value>Agama</option>
+                    <option value="Buddha Maitreya">Buddha Maitreya</option>
+                    <option value="Buddha Umum">Buddha Umum</option>
+                    <option value="Kong Hu Cu">Kong Hu Cu</option>
+                    <option value="Islam">Islam</option>
+                    <option value="Kristen">Kristen</option>
+                    <option value="Katolik">Katolik</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Sekolah_Asal"> Sekolah di</label>
+                <input
+                    type="text"
+                    id="Sekolah_Asal"
+                    name="Sekolah_Asal"
+                    class="form-control"
+                    placeholder="Berasal dari Sekolah? | Contoh: SD Maitreyawira"
+                    required
+                />
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Tempat_Lahir"> Kelas</label>
+                <input
+                    type="text"
+                    id="Kelas"
+                    name="Kelas"
+                    class="form-control"
+                    placeholder="Kelas sekarang | contoh: 3D"
+                    required
+                />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="Alamat">Alamat</label>
+        <input
+            type="text"
+            id="Alamat"
+            name="Alamat"
+            class="form-control"
+            autocomplete="false"
+            placeholder="Isi alamat sekarang | Komplek Tempat Tinggal, Blok, Jalan "
+            required
+        />
+    </div>
+
+    <div class="custom-file">
+        <input
+            type="file"
+            class="custom-file-input"
+            id="foto_siswa"
+            name="foto_siswa"
+            aria-describedby="inputGroupFileAddon01"
+        />
+        <label class="custom-file-label" for="foto_siswa"
+            >Upload Pas Foto</label
+        >
+    </div>
+
+    <small>Upload File Pas Foto Maksimal 2MB</small>
+
+    <section>
+        <h5
+            class="ps-2 mt-3 mb-3 py-2 text-center"
+            style="background-color: #00ff00"
+        >
+            KHUSUS DIISI UMAT BUDDHA MAITREYA
+        </h5>
+    </section>
+
+    <div class="row">
+        <div class="form-group col-md-6 mb-2">
+            <label for="Memohon_Ketuhanan"
+                >Apakah Sudah Memohon Ketuhanan?</label
+            >
+            <select
+                class="form-control"
+                id="Memohon_Ketuhanan"
+                name="Memohon_Ketuhanan"
+                required
+            >
+                <option selected disabled value>
+                    Apakah Sudah Memohon Ketuhanan
+                </option>
+                <option value="Iya">Iya</option>
+                <option value="Tidak">Tidak</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-6 mb-2">
+            <label for="Memohon_Ketuhanan">Apakah Sudah bervegetarian?</label>
+            <select class="form-control" id="Vegetarian" name="Vegetarian">
+                <option selected disabled value>
+                    Apakah Sudah bervegetarian?
+                </option>
+                <option value="Iya">Iya</option>
+                <option value="Tidak">Tidak</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-6 mb-2">
+            <label for="Tempat_Memohon_Ketuhanan"
+                >Tempat Vihara Memohon Ketuhanan</label
+            >
+            <input
+                type="text"
+                id="Tempat_Memohon_Ketuhanan"
+                name="Tempat_Memohon_Ketuhanan"
+                class="form-control"
+                autocomplete="false"
+                placeholder="Isi vihara tempat memohon ketuhanan"
+            />
+            <small class="text-secondary"
+                >Nama Vihara - Kota | contoh : Maha Vihara Duta Maitreya-
+                Batam</small
+            >
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                <label for="Tanggal_Memohon_Ketuhanan">
+                    Tanggal Memohon Ketuhanan</label
+                >
+                <input
+                    type="date"
+                    id="Tanggal_Memohon_Ketuhanan"
+                    name="Tanggal_Memohon_Ketuhanan"
+                    class="form-control"
+                />
+                <small class="text-secondary"
+                    >jika lupa diperbolehkan kurang lebih tanggal berapa?</small
+                >
+            </div>
+        </div>
+    </div>
+
+    <section>
+        <h4
+            class="ps-2 py-2 text-center"
+            style="background-color: #cfcfcf; color: #000080"
+        >
+            DATA ORANG TUA
+        </h4>
+    </section>
+
+    <section>
+        <h5
+            class="ps-2 mt-1 py-2 text-center"
+            style="background-color: #80ff00"
+        >
+            DATA AYAH
+        </h5>
+    </section>
+    <div class="row">
+        <div class="form-group col-md-6 mb-2">
+            <label for="Nama_Ayah">Nama Ayah</label>
+            <input
+                type="text"
+                id="Nama_Ayah"
+                name="Nama_Ayah"
+                class="form-control"
+                autocomplete="false"
+                placeholder="Isi nama lengkap ayah"
+            />
+        </div>
+
+        <div class="form-group col-md-6 mb-2'>
+        <label for="No_HP_Ayah">Nomor Telepon Ayah</label>
+        <input
+            type="number"
+            id="No_HP_Ayah"
+            name="No_HP_Ayah"
+            class="form-control"
+            autocomplete="false"
+            placeholder="Isi nomor Telepon Ayah aktif"
+        />
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group mb-2">
+            <label for="Agama_Ayah">Agama Ayah </label>
+            <select class="form-control" id="Agama_Ayah" name="Agama_Ayah">
+                <option selected disabled value>Agama</option>
+                <option value="Buddha Maitreya">Buddha Maitreya</option>
+                <option value="Buddha Umum">Buddha Umum</option>
+                <option value="Kong Hu Cu">Kong Hu Cu</option>
+                <option value="Islam">Islam</option>
+                <option value="Kristen">Kristen</option>
+                <option value="Katolik">Katolik</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<section>
+    <h5 class="ps-2 mt-3 py-2 text-center" style="background-color: #ff8000">
+        DATA IBU
+    </h5>
+</section>
+<div class="row">
+    <div class="form-group col-md-6 mb-2">
+        <label for="Nama_Ibu">Nama Ibu</label>
+        <input
+            type="text"
+            id="Nama_Ibu"
+            name="Nama_Ibu"
+            class="form-control"
+            autocomplete="false"
+            placeholder="Isi nama lengkap ibu"
+        />
+    </div>
+
+    <div class="form-group col-md-6 mb-2">
+        <label for="No_HP_Ibu">Nomor Telepon Ibu</label>
+        <input
+            type="number"
+            id="No_HP_Ibu"
+            name="No_HP_Ibu"
+            class="form-control"
+            autocomplete="false"
+            placeholder="Isi nomor Telepon ibu aktif"
+        />
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group mb-2">
+            <label for="Agama_Ibu">Agama Ibu </label>
+            <select class="form-control" id="Agama_Ibu" name="Agama_Ibu">
+                <option selected disabled value>Agama</option>
+                <option value="Buddha Maitreya">Buddha Maitreya</option>
+                <option value="Buddha Umum">Buddha Umum</option>
+                <option value="Kong Hu Cu">Kong Hu Cu</option>
+                <option value="Islam">Islam</option>
+                <option value="Kristen">Kristen</option>
+                <option value="Katolik">Katolik</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="form-group mb-3">
+    <label for="No_Whatsapp">Nomor Whatsapp</label>
+    <input
+        type="number"
+        id="No_Whatsapp"
+        name="No_Whatsapp"
+        class="form-control"
+        autocomplete="false"
+        placeholder="Isi No Whatsapp salah satu Orang Tua/Wali Aktif"
+        required
+    />
+    <small class="text-secondary"
+        >Nomor Whatsapp salah satu Orang Tua/Wali (Aktif)</small
+    >
+</div>
